@@ -1,8 +1,27 @@
+#include <iostream>
 #include "Vehicle.h"
 
-vehicle::vehicle(): year(0), miles_drove(0.0) {}
-vehicle::vehicle(double _miles_drove, int _year) : miles_drove(_miles_drove), year(_year) {}
-vehicle::vehicle(const vehicle& other) : miles_drove(other.miles_drove), year(other.year) {}
+Vehicle::Vehicle() : year{0}, miles_driven{0.0} {}
+Vehicle::Vehicle(int _year, double _miles_driven) : year{_year}, miles_driven{_miles_driven} {}
+Vehicle::Vehicle(const Vehicle& other) : miles_driven{other.miles_driven}, year{other.year} {}
+Vehicle::Vehicle(Vehicle&& other) {
+    miles_driven = other.miles_driven;
+    year = other.year;
+    
+    other.miles_driven = 0;
+    other.year = 0;
+}
+Vehicle::~Vehicle() {
+    // might remove this or print out nothing just for the output looks nicer
+    std::cout << "Destructor Called -  from Vehicle" << std::endl;
+}
 
-// Complex::Complex() : real{0.0}, imag{0.0} {}
-// Complex::Complex(double _real, double _imag) : real{_real}, imag{_imag} { }
+int Vehicle::getYear() const { return year; }
+double Vehicle::getMilesDriven() const { return miles_driven; }
+
+void Vehicle::setYear(int _year) {
+    year = _year;
+}
+void Vehicle::setMilesDriven(double _miles_driven) {
+    miles_driven = _miles_driven;
+}
